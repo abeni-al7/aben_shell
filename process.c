@@ -31,39 +31,66 @@ void free_arr(char **arr)
 
 /**
  * accept_command - acceps command from stdin
- * @buffer: buffer to store the string in
- * @n: address of size of buffer after accepting input
  * @name: name of program
  * Return: 0 or -1
  */
 
-void accept_command(char **buffer, size_t *n, char *name)
+char *accept_command(char *name)
 {
-	if (getline(buffer, n, stdin) == -1)
+	char *buffer = NULL;
+	size_t n = 0;
+
+	if (getline(&buffer, &n, stdin) == -1)
 	{
 		if (feof(stdin))
 		{
-			free(*buffer);
+			printf("\n");
+			free(buffer);
 			exit(EXIT_SUCCESS);
 		}
 		else
 		{
-			free(*buffer);
+			free(buffer);
 			error(name);
 		}
 	}
+	remove_newline(buffer);
+
+	return (buffer);
 }
 
 /**
  * execute_command - executes the command
  * @args: arguments of the progrm
+ * @buffer: input buffer
+ * @full_path: path of the executable
  * @name: name of the program
  */
 
-void execute_command(char **args, char *name)
+void execute_command(char **args, char *buffer, char *full_path, char *name)
 {
-	execve(args[0], args, NULL);
-	error(name);
+	pid_t pid;
+
+	pid = fork();
+	if (pid == -1)
+	{
+		free(buffer);
+		free(full_path);
+		free_arr(args);
+		error(name);
+	}
+	if (pid == 0)
+	{
+		execve(args[0], args, environ);
+		free(full_path);
+	}
+	else
+	{
+		wait(NULL);
+		if (args != NULL)
+			free_arr(args);
+		free(buffer);
+	}
 }
 
 /**

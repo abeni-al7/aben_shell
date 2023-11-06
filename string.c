@@ -25,9 +25,9 @@ char **tokenize(char *str, char *name)
 	int i = 0;
 	char **args = NULL;
 	char *token;
-	char delim[] = " \t\n:";
+	char delim[] = " \t\n\r:";
 
-	args = malloc(50 * sizeof(char *));
+	args = malloc(64 * sizeof(char *));
 	if (args == NULL)
 	{
 		error(name);
@@ -35,13 +35,10 @@ char **tokenize(char *str, char *name)
 	token = strtok(str, delim);
 	while (token != NULL)
 	{
-		args[i] = malloc((strlen(token) + 1) * sizeof(char));
-		if (args[i] == NULL)
-		{
-			free_arr(args);
-			error(name);
-		}
-		strcpy(args[i], token);
+		if (token[0] == '"' || token[0] == '\'')
+			args[i] = strndup(token + 1, strlen(token) - 2);
+		else
+			args[i] = strdup(token);
 		token = strtok(NULL, delim);
 		i++;
 	}
