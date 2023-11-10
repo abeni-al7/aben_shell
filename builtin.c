@@ -3,16 +3,29 @@
 /**
  * check_exit - handles the exit builtin
  * @command: command entered
+ * @buffer: input buffer
  */
 
-void check_exit(char *command)
+void check_exit(char **command, char *buffer)
 {
+	int status;
 	char *exit_command = "exit";
 
-	if (strcmp(command, exit_command) == 0)
+	if (strcmp(command[0], exit_command) == 0)
 	{
-		free(command);
-		exit(EXIT_SUCCESS);
+		if (command[1] == NULL)
+		{
+			free(buffer);
+			free_arr(command);
+			exit(EXIT_SUCCESS);
+		}
+		else
+		{
+			status = atoi(command[1]);
+			free(buffer);
+			free_arr(command);
+			exit(status);
+		}
 	}
 }
 

@@ -17,7 +17,6 @@ int main(int argc, char **argv)
 	{
 		prompt(interactive);
 		buffer = accept_command(argv[0]);
-		check_exit(buffer);
 		if (check_env(buffer) == 0)
 			continue;
 		if (buffer[0] == '\0' || strlen(buffer) == 0)
@@ -26,6 +25,7 @@ int main(int argc, char **argv)
 			continue;
 		}
 		args = tokenize(buffer, argv[0]);
+		check_exit(args, buffer);
 		full_path = Handle_path(args, buffer, argv[0]);
 		if (full_path == NULL)
 			continue;
