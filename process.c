@@ -75,20 +75,22 @@ void execute_command(char **args, char *buffer, char *full_path, char *name)
 	if (pid == -1)
 	{
 		free(buffer);
-		free(full_path);
+		if (full_path != NULL)
+			free(full_path);
 		free_arr(args);
 		error(name);
 	}
 	if (pid == 0)
 	{
 		execve(args[0], args, environ);
-		free(full_path);
 	}
 	else
 	{
 		wait(NULL);
 		if (args != NULL)
 			free_arr(args);
+		if (full_path != NULL)
+			free(full_path);
 		free(buffer);
 	}
 }

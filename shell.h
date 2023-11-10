@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <sys/wait.h>
 
 extern char **environ;
@@ -17,8 +18,11 @@ void free_arr(char **arr);
 char *accept_command(char *name);
 void execute_command(char **args, char *buffer, char *full_path, char *name);
 void prompt(int interactive);
-char *Handle_path(char *exec, char *name);
+char *Handle_path(char **args, char *buffer, char *name);
 void check_exit(char *command);
 int check_env(char *command);
+char **parse_path(char *name);
+char **tokenize_path(char *path, char *name);
+int check_executable(char *path);
 
 #endif

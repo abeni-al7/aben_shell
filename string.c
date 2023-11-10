@@ -25,7 +25,7 @@ char **tokenize(char *str, char *name)
 	int i = 0;
 	char **args = NULL;
 	char *token;
-	char delim[] = " \t\n\r:";
+	char delim[] = " \t\n\r";
 
 	args = malloc(64 * sizeof(char *));
 	if (args == NULL)
