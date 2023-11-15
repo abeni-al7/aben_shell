@@ -9,10 +9,12 @@
 
 int main(int argc, char **argv)
 {
-	char *buffer = NULL, **args = NULL, *full_path = NULL;
+	char *buffer = NULL;
+	char **args = NULL;
+	char *full_path = NULL;
 	int interactive = isatty(fileno(stdin));
-	int full_path_found = 0;
 
+	(void)argc;
 	while (1)
 	{
 		prompt(interactive);
@@ -33,7 +35,6 @@ int main(int argc, char **argv)
 		{
 			free(args[0]);
 			args[0] = strdup(full_path);
-			printf("After copying: %s\n", args[0]);
 			execute_command(args, buffer, full_path, argv[0]);
 		}
 		else

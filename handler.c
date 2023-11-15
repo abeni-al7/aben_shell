@@ -37,7 +37,6 @@ char **tokenize_path(char *path, char *name)
 
 char **parse_path(char *name)
 {
-	int i;
 	char *path = NULL;
 	char *path_copy;
 	char **dirs;
