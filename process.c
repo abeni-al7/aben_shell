@@ -40,7 +40,7 @@ char *accept_command(char *name)
 	char *buffer = NULL;
 	size_t n = 0;
 
-	if (_getline(&buffer, &n, stdin) == -1)
+	if (getline(&buffer, &n, stdin) == -1)
 	{
 		if (feof(stdin))
 		{
