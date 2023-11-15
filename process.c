@@ -44,7 +44,6 @@ char *accept_command(char *name)
 	{
 		if (feof(stdin))
 		{
-			printf("\n");
 			free(buffer);
 			exit(EXIT_SUCCESS);
 		}
