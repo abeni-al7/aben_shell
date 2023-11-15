@@ -48,3 +48,36 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	}
 	return (-1);
 }
+
+/**
+ * _strtok - tokenizes a string based on dilimiters
+ * @str: string to tokenize
+ * @delimiters: a string of delimiter characters
+ * Return: a pointer to the next token or NULL
+ */
+
+char *_strtok(char *str, const char *delimiters)
+{
+	int i = 0;
+	static char *p;
+	char *start = p;
+
+	if (str != NULL)
+		p = str;
+	while (*p != '\0' && strchr(delimiters, *p) != NULL)
+		p++;
+	if (*p == '\0')
+		return (NULL);
+	start = p;
+	while (*p != '\0')
+	{
+		if (strchr(delimiters, *p) != NULL)
+		{
+			*p = '\0';
+			p++;
+			return (start);
+		}
+		p++;
+	}
+	return (start);
+}

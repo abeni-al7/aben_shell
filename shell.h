@@ -25,5 +25,6 @@ char **parse_path(char *name);
 char **tokenize_path(char *path, char *name);
 int check_executable(char *path);
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
+char *_strtok(char *str, const char *delimiters);
 
 #endif
