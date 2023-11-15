@@ -58,7 +58,6 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 
 char *_strtok(char *str, const char *delimiters)
 {
-	int i = 0;
 	static char *p;
 	char *start = p;
 
