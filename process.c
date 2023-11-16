@@ -6,11 +6,13 @@
  * @line: line number
  * @command: the command with error
  * @message: error message
+ * Return: error code
  */
 
-void error(char *name, int line, char *command, char *message)
+int error(char *name, int line, char *command, char *message)
 {
 	dprintf(STDERR_FILENO, "%s: %d: %s: %s\n", name, line, command, message);
+	return (127);
 }
 
 /**
