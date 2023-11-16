@@ -19,7 +19,7 @@ char *accept_command(char *name, int line);
 void execute(char **args, char *buffer, char *full_path, char *name, int line);
 void prompt(int interactive);
 char *Handle_path(char **args, char *buffer, char *name, int line);
-void check_exit(char **command, char *buffer, int err);
+void check_exit(char **command, char *buffer);
 int check_env(char *command);
 char **parse_path(char *name);
 char **tokenize_path(char *path, char *name);
