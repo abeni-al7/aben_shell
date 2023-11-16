@@ -18,7 +18,7 @@ void check_exit(char **command, char *buffer, int err)
 		{
 			free(buffer);
 			free_arr(command);
-			if (err == 0)
+			if (err == 1)
 				exit(EXIT_FAILURE);
 			else
 				exit(EXIT_SUCCESS);
