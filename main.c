@@ -10,7 +10,7 @@
 int main(int argc, char **argv)
 {
 	char *buffer = NULL, **args = NULL, *full_path = NULL;
-	int interactive = isatty(fileno(stdin)), line = 0;
+	int interactive = isatty(fileno(stdin)), line = 0, err;
 
 	(void)argc;
 	while (1)
@@ -22,6 +22,7 @@ int main(int argc, char **argv)
 		{
 			args = tokenize(buffer, argv[0]);
 			execute(args, buffer, NULL, argv[0], line);
+			err = 1;
 			continue;
 		}
 		if (check_env(buffer) == 0)
@@ -32,7 +33,8 @@ int main(int argc, char **argv)
 			continue;
 		}
 		args = tokenize(buffer, argv[0]);
-		check_exit(args, buffer);
+		check_exit(args, buffer, err);
+		err = 0;
 		full_path = Handle_path(args, buffer, argv[0], line);
 		if (full_path == NULL)
 			continue;
@@ -41,9 +43,11 @@ int main(int argc, char **argv)
 			free(args[0]);
 			args[0] = strdup(full_path);
 			execute(args, buffer, full_path, argv[0], line);
+			err = 1;
 		}
 		else
 			execute(args, buffer, NULL, argv[0], line);
+			err = 1;
 	}
 	return (0);
 }
