@@ -11,14 +11,14 @@
 
 extern char **environ;
 
-void error(char *message);
+void error(char *name, int line, char *command, char *message);
 void remove_newline(char *str);
 char **tokenize(char *str, char *name);
 void free_arr(char **arr);
-char *accept_command(char *name);
+char *accept_command(char *name, int line);
 void execute_command(char **args, char *buffer, char *full_path, char *name);
 void prompt(int interactive);
-char *Handle_path(char **args, char *buffer, char *name);
+char *Handle_path(char **args, char *buffer, char *name, int line);
 void check_exit(char **command, char *buffer);
 int check_env(char *command);
 char **parse_path(char *name);

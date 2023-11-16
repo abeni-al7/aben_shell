@@ -2,13 +2,15 @@
 
 /**
  * error - handle errors
- * @message: the error message
+ * @name: the name of the program
+ * @line: line number
+ * @command: the command with error
+ * @message: error message
  */
 
-void error(char *message)
+void error(char *name, int line, char *command, char *message)
 {
-	perror(message);
-	exit(EXIT_FAILURE);
+	dprintf(STDERR_FILENO, "%s: %d: %s: %s\n", name, line, command, message);
 }
 
 /**
@@ -32,10 +34,11 @@ void free_arr(char **arr)
 /**
  * accept_command - acceps command from stdin
  * @name: name of program
+ * @line: line number
  * Return: 0 or -1
  */
 
-char *accept_command(char *name)
+char *accept_command(char *name, int line)
 {
 	char *buffer = NULL;
 	size_t n = 0;
@@ -50,7 +53,7 @@ char *accept_command(char *name)
 		else
 		{
 			free(buffer);
-			error(name);
+			error(name, line, NULL, "can not accept");
 		}
 	}
 	remove_newline(buffer);
@@ -77,7 +80,7 @@ void execute_command(char **args, char *buffer, char *full_path, char *name)
 		if (full_path != NULL)
 			free(full_path);
 		free_arr(args);
-		error(name);
+		error(name, 0, NULL, "can not create process");
 	}
 	if (pid == 0)
 	{

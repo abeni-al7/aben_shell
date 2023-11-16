@@ -16,7 +16,7 @@ char **tokenize_path(char *path, char *name)
 
 	dirs = malloc(64 * sizeof(char *));
 	if (dirs == NULL)
-		error(name);
+		error(name, 0, NULL, NULL);
 	token = strtok(path, delim);
 	while (token != NULL)
 	{
@@ -54,10 +54,11 @@ char **parse_path(char *name)
  * @args: executable array
  * @buffer: input command
  * @name: name of program
+ * @line: line number of command
  * Return: the full path of the executable
  */
 
-char *Handle_path(char **args, char *buffer, char *name)
+char *Handle_path(char **args, char *buffer, char *name, int line)
 {
 	int i;
 	char *slash = "/";
@@ -91,9 +92,9 @@ char *Handle_path(char **args, char *buffer, char *name)
 		i++;
 	}
 	free_arr(folders);
-	free(buffer);
 	free_arr(args);
-	perror(name);
+	error(name, line, buffer, "not found");
+	free(buffer);
 	return (NULL);
 }
 
