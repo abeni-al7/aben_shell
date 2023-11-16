@@ -21,7 +21,7 @@ int main(int argc, char **argv)
 		if (strspn(buffer, "/"))
 		{
 			args = tokenize(buffer, argv[0]);
-			execute_command(args, buffer, NULL, argv[0]);
+			execute(args, buffer, NULL, argv[0], line);
 			continue;
 		}
 		if (check_env(buffer) == 0)
@@ -40,10 +40,10 @@ int main(int argc, char **argv)
 		{
 			free(args[0]);
 			args[0] = strdup(full_path);
-			execute_command(args, buffer, full_path, argv[0]);
+			execute(args, buffer, full_path, argv[0], line);
 		}
 		else
-			execute_command(args, buffer, NULL, argv[0]);
+			execute(args, buffer, NULL, argv[0], line);
 	}
 	return (0);
 }

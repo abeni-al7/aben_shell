@@ -69,12 +69,25 @@ char *accept_command(char *name, int line)
  * @buffer: input buffer
  * @full_path: path of the executable
  * @name: name of the program
+ * @line: command number
  */
 
-void execute_command(char **args, char *buffer, char *full_path, char *name)
+void execute(char **args, char *buffer, char *full_path, char *name, int line)
 {
 	pid_t pid;
 
+	if (check_executable(args[0]) != 0)
+	{
+		if (args != NULL)
+			free_arr(args);
+		if (full_path != NULL)
+			free(full_path);
+		if (buffer != NULL)
+			free(buffer);
+		error(name, line, args[0], "not found");
+		return;
+	}
+		
 	pid = fork();
 	if (pid == -1)
 	{

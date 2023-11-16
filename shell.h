@@ -16,7 +16,7 @@ void remove_newline(char *str);
 char **tokenize(char *str, char *name);
 void free_arr(char **arr);
 char *accept_command(char *name, int line);
-void execute_command(char **args, char *buffer, char *full_path, char *name);
+void execute(char **args, char *buffer, char *full_path, char *name, int line);
 void prompt(int interactive);
 char *Handle_path(char **args, char *buffer, char *name, int line);
 void check_exit(char **command, char *buffer);

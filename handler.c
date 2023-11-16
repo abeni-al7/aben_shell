@@ -61,9 +61,7 @@ char **parse_path(char *name)
 char *Handle_path(char **args, char *buffer, char *name, int line)
 {
 	int i;
-	char *slash = "/";
-	char **folders = parse_path(name);
-	char *full_path = NULL;
+	char *slash = "/", **folders = parse_path(name), *full_path = NULL;
 
 	if (check_executable(args[0]) == 0)
 	{
@@ -91,7 +89,8 @@ char *Handle_path(char **args, char *buffer, char *name, int line)
 		free(full_path);
 		i++;
 	}
-	free_arr(folders);
+	if (folders != NULL)
+		free_arr(folders);
 	free_arr(args);
 	error(name, line, buffer, "not found");
 	free(buffer);
