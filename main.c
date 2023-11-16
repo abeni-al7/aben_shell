@@ -9,9 +9,7 @@
 
 int main(int argc, char **argv)
 {
-	char *buffer = NULL;
-	char **args = NULL;
-	char *full_path = NULL;
+	char *buffer = NULL, **args = NULL, *full_path = NULL;
 	int interactive = isatty(fileno(stdin));
 
 	(void)argc;
@@ -19,6 +17,12 @@ int main(int argc, char **argv)
 	{
 		prompt(interactive);
 		buffer = accept_command(argv[0]);
+		if (strspn(buffer, "/"))
+		{
+			args = tokenize(buffer, argv[0]);
+			execute_command(args, buffer, NULL, argv[0]);
+			continue;
+		}
 		if (check_env(buffer) == 0)
 			continue;
 		if (buffer[0] == '\0' || strspn(buffer, " ") == strlen(buffer))

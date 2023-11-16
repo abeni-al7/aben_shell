@@ -90,7 +90,8 @@ void execute_command(char **args, char *buffer, char *full_path, char *name)
 			free_arr(args);
 		if (full_path != NULL)
 			free(full_path);
-		free(buffer);
+		if (buffer != NULL)
+			free(buffer);
 	}
 }
 
