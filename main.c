@@ -21,7 +21,7 @@ int main(int argc, char **argv)
 		buffer = accept_command(argv[0]);
 		if (check_env(buffer) == 0)
 			continue;
-		if (buffer[0] == '\0' || strlen(buffer) == 0)
+		if (buffer[0] == '\0' || strspn(buffer, " ") == strlen(buffer))
 		{
 			free(buffer);
 			continue;
