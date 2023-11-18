@@ -64,7 +64,7 @@ char *accept_command(char *name, int line)
 }
 
 /**
- * execute_command - executes the command
+ * execute - executes the command
  * @args: arguments of the progrm
  * @buffer: input buffer
  * @full_path: path of the executable
