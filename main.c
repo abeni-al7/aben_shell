@@ -32,7 +32,7 @@ int main(int argc, char **argv)
 			continue;
 		}
 		args = tokenize(buffer, argv[0]);
-		check_exit(args, buffer, err);
+		check_exit(args, buffer);
 		full_path = Handle_path(args, buffer, argv[0], line);
 		if (full_path == NULL)
 			continue;
