@@ -92,7 +92,6 @@ char *Handle_path(char **args, char *buffer, char *name, int line)
 	if (folders != NULL)
 		free_arr(folders);
 	free_arr(args);
-	free(buffer);
 	error(name, line, buffer, "not found");
 	return (NULL);
 }
