@@ -87,7 +87,6 @@ void execute(char **args, char *buffer, char *full_path, char *name, int line)
 		error(name, line, args[0], "not found");
 		return;
 	}
-		
 	pid = fork();
 	if (pid == -1)
 	{
