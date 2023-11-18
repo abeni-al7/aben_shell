@@ -9,10 +9,10 @@
  * Return: error code
  */
 
-int error(char *name, int line, char *command, char *message)
+void error(char *name, int line, char *command, char *message)
 {
 	dprintf(STDERR_FILENO, "%s: %d: %s: %s\n", name, line, command, message);
-	return (127);
+	exit(127);
 }
 
 /**
