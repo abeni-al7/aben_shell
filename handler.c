@@ -42,6 +42,8 @@ char **parse_path(char *name)
 	char **dirs;
 
 	path = getenv("PATH");
+	if (path == NULL)
+		return (NULL);
 	path_copy = strdup(path);
 	dirs = tokenize_path(path_copy, name);
 	free(path_copy);
@@ -63,6 +65,11 @@ char *Handle_path(char **args, char *buffer, char *name, int line)
 	int i;
 	char *slash = "/", **folders = parse_path(name), *full_path = NULL;
 
+	if (folders == NULL)
+	{
+		free_arr(args);
+		error(name, line, buffer, "not found");
+	}
 	if (check_executable(args[0]) == 0)
 	{
 		free_arr(folders);
