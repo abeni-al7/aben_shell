@@ -16,7 +16,7 @@ char **tokenize_path(char *path, char *name)
 
 	dirs = malloc(64 * sizeof(char *));
 	if (dirs == NULL)
-		error(name, 0, NULL, NULL);
+		error(name, 0, NULL, NULL, isatty(fileno(stdin)));
 	token = strtok(path, delim);
 	while (token != NULL)
 	{
@@ -68,7 +68,7 @@ char *Handle_path(char **args, char *buffer, char *name, int line)
 	if (folders == NULL)
 	{
 		free_arr(args);
-		error(name, line, buffer, "not found");
+		error(name, line, buffer, "not found", isatty(fileno(stdin)));
 	}
 	if (check_executable(args[0]) == 0)
 	{
@@ -99,7 +99,7 @@ char *Handle_path(char **args, char *buffer, char *name, int line)
 	if (folders != NULL)
 		free_arr(folders);
 	free_arr(args);
-	error(name, line, buffer, "not found");
+	error(name, line, buffer, "not found", isatty(fileno(stdin)));
 	return (NULL);
 }
 

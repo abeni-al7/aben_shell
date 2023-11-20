@@ -30,7 +30,7 @@ char **tokenize(char *str, char *name)
 	args = malloc(64 * sizeof(char *));
 	if (args == NULL)
 	{
-		error(name, 0, NULL, NULL);
+		error(name, 0, NULL, NULL, isatty(fileno(stdin)));
 	}
 	token = strtok(str, delim);
 	while (token != NULL)

@@ -6,14 +6,16 @@
  * @line: line number
  * @command: the command with error
  * @message: error message
+ * @interactive: interactive mode or not
  * Return: error code
  */
 
-void error(char *name, int line, char *command, char *message)
+void error(char *name, int line, char *command, char *message, int interactive)
 {
 	dprintf(STDERR_FILENO, "%s: %d: %s: %s\n", name, line, command, message);
 	free(command);
-	exit(127);
+	if (!interactive)
+		exit(127);
 }
 
 /**
@@ -56,7 +58,7 @@ char *accept_command(char *name, int line)
 		else
 		{
 			free(buffer);
-			error(name, line, NULL, "can not accept");
+			error(name, line, NULL, NULL, isatty(fileno(stdin)));
 		}
 	}
 	remove_newline(buffer);
@@ -85,7 +87,7 @@ void execute(char **args, char *buffer, char *full_path, char *name, int line)
 			free(full_path);
 		if (buffer != NULL)
 			free(buffer);
-		error(name, line, args[0], "not found");
+		error(name, line, args[0], "not found", isatty(fileno(stdin)));
 		return;
 	}
 	pid = fork();
@@ -95,7 +97,7 @@ void execute(char **args, char *buffer, char *full_path, char *name, int line)
 		if (full_path != NULL)
 			free(full_path);
 		free_arr(args);
-		error(name, 0, NULL, "can not create process");
+		error(name, 0, NULL, NULL, isatty(fileno(stdin)));
 	}
 	if (pid == 0)
 	{
