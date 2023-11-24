@@ -77,8 +77,10 @@ char *accept_command(char *name, int line)
 
 void execute(char **args, char *buffer, char *full_path, char *name, int line)
 {
+	int status;
 	pid_t pid;
 
+	(void)line;
 	if (check_executable(args[0]) != 0)
 	{
 		if (args != NULL)
@@ -87,7 +89,7 @@ void execute(char **args, char *buffer, char *full_path, char *name, int line)
 			free(full_path);
 		if (buffer != NULL)
 			free(buffer);
-		error(name, line, args[0], "not found", isatty(fileno(stdin)));
+		perror("");
 		return;
 	}
 	pid = fork();
@@ -105,7 +107,7 @@ void execute(char **args, char *buffer, char *full_path, char *name, int line)
 	}
 	else
 	{
-		wait(NULL);
+		wait(&status);
 		if (args != NULL)
 			free_arr(args);
 		if (full_path != NULL)
