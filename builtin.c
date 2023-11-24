@@ -4,9 +4,10 @@
  * check_exit - handles the exit builtin
  * @command: command entered
  * @buffer: input buffer
+ * @stat: exit status
  */
 
-void check_exit(char **command, char *buffer)
+void check_exit(char **command, char *buffer, int *stat)
 {
 	int status;
 	char *exit_command = "exit";
@@ -17,7 +18,7 @@ void check_exit(char **command, char *buffer)
 		{
 			free(buffer);
 			free_arr(command);
-			exit(EXIT_SUCCESS);
+			exit(*stat);
 		}
 		else
 		{

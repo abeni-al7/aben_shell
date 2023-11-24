@@ -10,7 +10,7 @@
 int main(int argc, char **argv)
 {
 	char *buffer = NULL, **args = NULL, *full_path = NULL;
-	int interactive = isatty(fileno(stdin)), line = 0;
+	int interactive = isatty(fileno(stdin)), line = 0, stat = 0;
 
 	(void)argc;
 	while (1)
@@ -21,7 +21,8 @@ int main(int argc, char **argv)
 		if (strspn(buffer, "/"))
 		{
 			args = tokenize(buffer, argv[0]);
-			execute(args, buffer, NULL, argv[0], line);
+			if (execute(args, buffer, NULL, argv[0], line) == 2)
+				stat = 2;
 			continue;
 		}
 		if (check_env(buffer) == 0)
@@ -32,7 +33,7 @@ int main(int argc, char **argv)
 			continue;
 		}
 		args = tokenize(buffer, argv[0]);
-		check_exit(args, buffer);
+		check_exit(args, buffer, &stat);
 		full_path = Handle_path(args, buffer, argv[0], line);
 		if (full_path == NULL)
 			continue;

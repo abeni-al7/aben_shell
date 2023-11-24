@@ -73,9 +73,10 @@ char *accept_command(char *name, int line)
  * @full_path: path of the executable
  * @name: name of the program
  * @line: command number
+ * Return: exit status
  */
 
-void execute(char **args, char *buffer, char *full_path, char *name, int line)
+int execute(char **args, char *buffer, char *full_path, char *name, int line)
 {
 	int status;
 	pid_t pid;
@@ -90,7 +91,7 @@ void execute(char **args, char *buffer, char *full_path, char *name, int line)
 		if (buffer != NULL)
 			free(buffer);
 		perror("");
-		return;
+		return (2);
 	}
 	pid = fork();
 	if (pid == -1)
@@ -115,6 +116,7 @@ void execute(char **args, char *buffer, char *full_path, char *name, int line)
 		if (buffer != NULL)
 			free(buffer);
 	}
+	return (0);
 }
 
 /**
