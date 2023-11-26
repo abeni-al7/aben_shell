@@ -33,7 +33,7 @@ int main(int argc, char **argv)
 			continue;
 		}
 		args = tokenize(buffer, argv[0]);
-		(void)stat;
+		check_exit(args, buffer, &stat);
 		full_path = Handle_path(args, buffer, argv[0], line);
 		if (full_path == NULL)
 			continue;
