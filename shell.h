@@ -11,6 +11,7 @@
 
 extern char **environ;
 
+void err(char *dir, char *non, char *message);
 void error(char *name, int line, char *command, char *message, int inter);
 void remove_newline(char *str);
 char **tokenize(char *str, char *name);

@@ -78,6 +78,7 @@ char *accept_command(char *name, int line)
 
 int execute(char **args, char *buffer, char *full_path, char *name, int line)
 {
+	char message[] = "No such file or directory", path[] = "/bin/ls";
 	int status;
 	pid_t pid;
 
@@ -90,7 +91,7 @@ int execute(char **args, char *buffer, char *full_path, char *name, int line)
 			free(full_path);
 		if (buffer != NULL)
 			free(buffer);
-		perror("");
+		err(path, "/test_hbtn", message);
 		return (2);
 	}
 	pid = fork();
