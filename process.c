@@ -129,7 +129,7 @@ void prompt(int interactive)
 {
 	if (interactive)
 	{
-		printf("$ ");
+		printf("aben_shell$ ");
 		fflush(stdout);
 	}
 }
